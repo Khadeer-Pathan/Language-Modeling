@@ -1,7 +1,7 @@
 """
 Language Modeling Project
-Name:
-Roll No:
+Name: Pathan Khadeer Ahmed Khan
+Roll No: 2022501003
 """
 
 import language_tests as test
@@ -17,7 +17,16 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    return
+    f = open(filename, "r")
+    lines = f.read()
+    line = lines.split("\n")
+    corpus = []
+    for row in line:
+        if row != "":
+            col = row.split(" ")
+            corpus.append(col)
+    f.close()
+    return corpus
 
 
 '''
@@ -285,10 +294,12 @@ def scatterPlot(xs, ys, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
+    test.testLoadBook()
+    """
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    test.runWeek1()"""
 
     ## Uncomment these for Week 2 ##
 """
