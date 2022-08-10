@@ -36,10 +36,11 @@ Parameters: 2D list of strs
 Returns: int
 '''
 def getCorpusLength(corpus):
-    corpuslength = 0
-    for i in corpus:
-        for j in i:
-            corpuslength +=1
+    # corpuslength = 0
+    # for i in corpus:
+    #     for j in i:
+    #         corpuslength +=1
+    corpuslength = sum([len(i) for i in corpus])
     return corpuslength
 
 
@@ -50,7 +51,14 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    return
+    unigrams = []
+    # for i in corpus:
+    #     for j in i:
+    #         if j not in unigrams:
+    #             unigrams.append(j)
+    # sorted(unigrams)
+    [unigrams.append(j) for i in corpus for j in i if j not in unigrams]
+    return unigrams
 
 
 '''
@@ -299,7 +307,8 @@ def scatterPlot(xs, ys, labels, title):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
     # test.testLoadBook()
-    test.testGetCorpusLength()
+    # test.testGetCorpusLength()
+    test.testBuildVocabulary()
     """
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     test.week1Tests()
