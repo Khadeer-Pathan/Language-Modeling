@@ -51,14 +51,14 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    unigrams = []
+    unigramslist = []
     # for i in corpus:
     #     for j in i:
-    #         if j not in unigrams:
-    #             unigrams.append(j)
-    # sorted(unigrams)
-    [unigrams.append(j) for i in corpus for j in i if j not in unigrams]
-    return unigrams
+    #         if j not in unigramslist:
+    #             unigramslist.append(j)
+    # sorted(unigramslist)
+    [unigramslist.append(j) for i in corpus for j in i if j not in unigramslist]
+    return unigramslist
 
 
 '''
@@ -68,7 +68,15 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    return
+    unigramsdict = {}
+    for i in corpus:
+        for j in i:
+            if j not in unigramsdict:
+                unigramsdict[j] = 1
+            else:
+                unigramsdict[j] += 1
+    
+    return unigramsdict
 
 
 '''
@@ -308,7 +316,8 @@ def scatterPlot(xs, ys, labels, title):
 if __name__ == "__main__":
     # test.testLoadBook()
     # test.testGetCorpusLength()
-    test.testBuildVocabulary()
+    # test.testBuildVocabulary()
+    test.testCountUnigrams()
     """
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     test.week1Tests()
