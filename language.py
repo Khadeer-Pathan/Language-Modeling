@@ -1,7 +1,7 @@
 """
 Language Modeling Project
-Name:
-Roll No:
+Name: Pathan Khadeer Ahmed Khan
+Roll No: 2022501003
 """
 
 import language_tests as test
@@ -17,7 +17,16 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    return
+    f = open(filename, "r")
+    lines = f.read()
+    line = lines.split("\n")
+    corpus = []
+    for row in line:
+        if row != "":
+            col = row.split(" ")
+            corpus.append(col)
+    f.close()
+    return corpus
 
 
 '''
@@ -27,7 +36,12 @@ Parameters: 2D list of strs
 Returns: int
 '''
 def getCorpusLength(corpus):
-    return
+    # corpuslength = 0
+    # for i in corpus:
+    #     for j in i:
+    #         corpuslength +=1
+    corpuslength = sum([len(i) for i in corpus])
+    return corpuslength
 
 
 '''
@@ -37,7 +51,14 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    return
+    unigramslist = []
+    # for i in corpus:
+    #     for j in i:
+    #         if j not in unigramslist:
+    #             unigramslist.append(j)
+    # sorted(unigramslist)
+    [unigramslist.append(j) for i in corpus for j in i if j not in unigramslist]
+    return unigramslist
 
 
 '''
@@ -47,7 +68,15 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    return
+    unigramsdict = {}
+    for i in corpus:
+        for j in i:
+            if j not in unigramsdict:
+                unigramsdict[j] = 1
+            else:
+                unigramsdict[j] += 1
+    
+    return unigramsdict
 
 
 '''
@@ -56,8 +85,10 @@ getStartWords(corpus)
 Parameters: 2D list of strs
 Returns: list of strs
 '''
-def getStartWords(corpus):
-    return
+def getStartWords(corpus): 
+    getstartwordslist = []
+    [getstartwordslist.append(i[0]) for i in corpus if i[0] not in getstartwordslist]
+    return getstartwordslist
 
 
 '''
@@ -67,7 +98,12 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countStartWords(corpus):
-    return
+    getstartwordslist = getStartWords(corpus)
+    tempstartlist = [i[0] for i in corpus]
+    countstartwordsdict = {}
+    for i in getstartwordslist:
+        countstartwordsdict[i] = tempstartlist.count(i)
+    return countstartwordsdict
 
 
 '''
@@ -77,7 +113,22 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to (dicts mapping strs to ints)
 '''
 def countBigrams(corpus):
-    return
+    countbigramsdict = {}
+    for i in range(len(corpus)):
+        for j in range(len(corpus[i])-1):
+            v1,v2 = corpus[i][j], corpus[i][j+1]
+            # print(v1, v2)
+            if v1 not in countbigramsdict:
+                countbigramsdict[v1] = {}
+                if v2 not in countbigramsdict[v1]:
+                    countbigramsdict[v1][v2] = 1
+            else:
+                if v2 not in countbigramsdict[v1]:
+                    countbigramsdict[v1][v2] = 1
+                else:
+                    countbigramsdict[v1][v2] += 1
+
+    return countbigramsdict
 
 
 ### WEEK 2 ###
@@ -89,7 +140,9 @@ Parameters: list of strs
 Returns: list of floats
 '''
 def buildUniformProbs(unigrams):
-    return
+    uniformproblist = []
+    [uniformproblist.append(1/len(unigrams)) for i in unigrams]
+    return uniformproblist
 
 
 '''
@@ -99,7 +152,13 @@ Parameters: list of strs ; dict mapping strs to ints ; int
 Returns: list of floats
 '''
 def buildUnigramProbs(unigrams, unigramCounts, totalCount):
-    return
+    unigramproblist = []
+    for i in range(len(unigrams)):
+        if unigrams[i] in unigramCounts:
+            unigramproblist.append(unigramCounts[unigrams[i]]/totalCount)
+        else:
+            unigramproblist.append(0)
+    return unigramproblist
 
 
 '''
@@ -285,12 +344,22 @@ def scatterPlot(xs, ys, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    # test.testLoadBook()
+    # test.testGetCorpusLength()
+    # test.testBuildVocabulary()
+    # test.testCountUnigrams()
+    # test.testGetStartWords()
+    # test.testCountStartWords()
+    # test.testCountBigrams()
+
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # test.runWeek1()
 
     ## Uncomment these for Week 2 ##
+    # test.testBuildUniformProbs()
+    test.testBuildUnigramProbs()
 """
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
