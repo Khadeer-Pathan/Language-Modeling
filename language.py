@@ -187,7 +187,15 @@ Parameters: int ; list of strs ; list of floats ; list of strs
 Returns: dict mapping strs to floats
 '''
 def getTopWords(count, words, probs, ignoreList):
-    return
+    # print(count); print(words); print(probs), print(ignoreList)
+    tempdict = {words[i]:probs[i] for i in range(len(words))}
+    sortedtempdict = {k:v for k,v in sorted(tempdict.items(), key=lambda v:v[1], reverse=True)}
+    topwordsdict = {}
+    for k in sortedtempdict:
+        if k not in ignoreList:
+            if len(topwordsdict)<count:
+                topwordsdict[k] = sortedtempdict[k]
+    return topwordsdict
 
 
 '''
@@ -369,7 +377,8 @@ if __name__ == "__main__":
     ## Uncomment these for Week 2 ##
     # test.testBuildUniformProbs()
     # test.testBuildUnigramProbs()
-    test.testBuildBigramProbs()
+    # test.testBuildBigramProbs()
+    test.testGetTopWords()
 """
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
